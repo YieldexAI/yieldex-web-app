@@ -1,11 +1,13 @@
 'use client'
 
-import { useAccount } from 'wagmi'
+import { useAccount, useReadContract, useBalance } from 'wagmi'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { Coins } from 'lucide-react'
 import Link from 'next/link'
+import { TOKEN_CONTRACTS } from '@/config/contracts'
+import { formatUnits } from 'viem'
 
 interface ApyData {
   asset: string
@@ -16,10 +18,38 @@ interface ApyData {
 }
 
 export default function Dashboard() {
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
   const router = useRouter()
   const [apyHistory, setApyHistory] = useState<ApyData[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
+  // Get ETH balance
+  const { data: ethBalance, isError: isEthError, isLoading: isEthLoading } = useBalance({
+    address,
+    query: {
+      enabled: !!address
+    }
+  })
+
+  // Get USDT contract data
+  const { data: usdtBalance, isError: isUsdtError, isLoading: isUsdtLoading } = useReadContract({
+    address: TOKEN_CONTRACTS.USDT.address,
+    abi: TOKEN_CONTRACTS.USDT.abi,
+    functionName: 'balanceOf',
+    args: address ? [address] : undefined,
+    query: {
+      enabled: !!address
+    }
+  })
+
+  const { data: usdtTotalSupply, isError: isUsdtTotalSupplyError, isLoading: isUsdtTotalSupplyLoading } = useReadContract({
+    address: TOKEN_CONTRACTS.USDT.address,
+    abi: TOKEN_CONTRACTS.USDT.abi,
+    functionName: 'totalSupply',
+    query: {
+      enabled: true
+    }
+  })
 
   const getApyHistory = async () => {
     try {
@@ -40,9 +70,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (!isConnected) {
-      router.push('/')
-    }
+    // if (!isConnected) {
+    //   router.push('/')
+    // }
     getApyHistory()
   }, [isConnected, router])
 
@@ -82,6 +112,54 @@ export default function Dashboard() {
       <div className='container mx-auto px-8'>
         <h1 className='text-3xl font-bold mb-6'>Yield Dashboard</h1>
 
+        {/* Asset Stats */}
+        <div className='mb-8 bg-gray-800 p-6 rounded-lg shadow-lg'>
+          <h2 className='text-xl font-semibold text-blue-400 mb-4'>Asset Statistics</h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div>
+              <p className='text-gray-400 text-sm mb-2'>Your ETH Balance</p>
+              <p className='text-2xl font-bold'>
+                {isEthError ? (
+                  'Error loading balance'
+                ) : isEthLoading ? (
+                  'Loading...'
+                ) : !ethBalance ? (
+                  '0 ETH'
+                ) : (
+                  `${ethBalance.formatted} ${ethBalance.symbol}`
+                )}
+              </p>
+            </div>
+            <div>
+              <p className='text-gray-400 text-sm mb-2'>Your USDT Balance</p>
+              <p className='text-2xl font-bold'>
+                {isUsdtError ? (
+                  'Error loading balance'
+                ) : isUsdtLoading ? (
+                  'Loading...'
+                ) : usdtBalance === undefined ? (
+                  '0 USDT'
+                ) : (
+                  `${formatUnits(usdtBalance, TOKEN_CONTRACTS.USDT.decimals)} USDT`
+                )}
+              </p>
+            </div>
+            <div>
+              <p className='text-gray-400 text-sm mb-2'>Total USDT Supply</p>
+              <p className='text-2xl font-bold'>
+                {isUsdtTotalSupplyError ? (
+                  'Error loading supply'
+                ) : isUsdtTotalSupplyLoading || !usdtTotalSupply ? (
+                  'Loading...'
+                ) : (
+                  `${Number(formatUnits(usdtTotalSupply, TOKEN_CONTRACTS.USDT.decimals)).toLocaleString()} USDT`
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* APY History */}
         {isLoading ? (
           <div className='flex justify-center items-center min-h-[200px]'>
             <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500'></div>
