@@ -1,18 +1,53 @@
 import { http, createConfig } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
-import { metaMask, injected, walletConnect } from 'wagmi/connectors'
+import { arbitrum } from 'wagmi/chains'
+import { injected, metaMask } from 'wagmi/connectors'
 
+// Определяем Arbitrum явно
+const arbitrumChain = {
+  ...arbitrum,
+  id: 42161,
+  name: 'Arbitrum One',
+  network: 'arbitrum',
+  nativeCurrency: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: { 
+      http: ['https://arb1.arbitrum.io/rpc']
+    },
+    public: {
+      http: ['https://arb1.arbitrum.io/rpc']
+    }
+  },
+  blockExplorers: {
+    default: {
+      name: 'Arbiscan',
+      url: 'https://arbiscan.io'
+    }
+  }
+}
+
+// Конфигурация Wagmi
 export const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [arbitrumChain],
   connectors: [
-    metaMask(),
-    walletConnect({
-      projectId: '534cc26a5f76dabe55fb1f7114f5f720',
+    metaMask({
+      chains: [arbitrumChain],
     }),
+    injected({
+      chains: [arbitrumChain],
+    })
   ],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-  ssr: true,
+    [arbitrumChain.id]: http(arbitrumChain.rpcUrls.default.http[0])
+  }
 })
+
+// Экспортируем типы для использования в других файлах
+declare module 'wagmi' {
+  interface Register {
+    config: typeof config
+  }
+}
