@@ -1,10 +1,6 @@
 'use client'
 
-import { 
-  useAccount, 
-  useDisconnect, 
-  useChainId
-} from 'wagmi'
+import { useAccount, useDisconnect, useChainId } from 'wagmi'
 import { useState, useRef, useEffect } from 'react'
 import { LogOut, Copy, ExternalLink, Network } from 'lucide-react'
 import dynamic from 'next/dynamic'
@@ -19,15 +15,15 @@ const SUPPORTED_NETWORKS = {
     config: {
       chainId: '0xa4b1',
       chainName: 'Arbitrum One',
-      nativeCurrency: { 
-        name: 'ETH', 
-        symbol: 'ETH', 
-        decimals: 18 
+      nativeCurrency: {
+        name: 'ETH',
+        symbol: 'ETH',
+        decimals: 18,
       },
       rpcUrls: ['https://arb1.arbitrum.io/rpc'],
       blockExplorerUrls: ['https://arbiscan.io/'],
-    }
-  }
+    },
+  },
 }
 
 // Создаем компонент без SSR
@@ -52,8 +48,8 @@ const AvatarButtonComponent = () => {
       if (window.ethereum) {
         try {
           // Получаем текущий chainId из MetaMask
-          const ethereumChainId = await window.ethereum.request({ 
-            method: 'eth_chainId' 
+          const ethereumChainId = await window.ethereum.request({
+            method: 'eth_chainId',
           })
           setCurrentChainId(parseInt(ethereumChainId as string, 16))
 
@@ -87,7 +83,7 @@ const AvatarButtonComponent = () => {
   // Закрываем меню при клике вне компонента
   useEffect(() => {
     if (!mounted) return
-    
+
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false)
@@ -109,7 +105,7 @@ const AvatarButtonComponent = () => {
     wagmiChainId: chainId,
     currentChainId,
     metamaskChainId: window.ethereum?.chainId,
-    isArbitrum: isArbitrumNetwork
+    isArbitrum: isArbitrumNetwork,
   })
 
   // Функция для добавления сети Arbitrum
@@ -166,58 +162,67 @@ const AvatarButtonComponent = () => {
   }
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className='relative' ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white hover:opacity-90 transition-opacity"
+        className='flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white hover:opacity-90 transition-opacity'
       >
-        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+        <div className='w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center'>
           {shortAddress.slice(0, 2)}
         </div>
         <span>{shortAddress}</span>
         {/* Индикатор сети */}
-        <div className={`flex items-center ${currentNetwork?.color || 'text-gray-400'}`}>
-          <span className="mr-1">{currentNetwork?.icon || '❓'}</span>
+        <div
+          className={`flex items-center ${
+            currentNetwork?.color || 'text-gray-400'
+          }`}
+        >
+          <span className='mr-1'>{currentNetwork?.icon || '❓'}</span>
         </div>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 pixel-text">
+        <div className='absolute right-0 mt-2 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 pixel-text'>
           {/* Секция сети */}
-          <div className="px-4 py-2 border-b border-gray-700">
-            <div className="text-sm text-gray-400">Network</div>
-            <div className={`flex items-center ${currentNetwork?.color || 'text-gray-400'}`}>
-              <span className="mr-2">{currentNetwork?.icon}</span>
+          <div className='px-4 py-2 border-b border-gray-700'>
+            <div className='text-sm text-gray-400'>Network</div>
+            <div
+              style={{ wordBreak: 'break-word' }}
+              className={`flex items-center ${
+                currentNetwork?.color || 'text-gray-400'
+              }`}
+            >
+              <span>{currentNetwork?.icon}</span>
               <span>{currentNetwork?.name || 'Unsupported Network'}</span>
             </div>
           </div>
 
-          <div className="py-1" role="menu">
+          <div className='py-1' role='menu'>
             {/* Кнопка переключения на Arbitrum */}
             {!isArbitrumNetwork && (
               <button
                 onClick={switchToArbitrum}
                 disabled={isSwitching}
-                className="flex items-center px-4 py-2 text-sm text-blue-400 hover:bg-gray-700 w-full disabled:opacity-50"
+                className='flex items-center px-4 py-2 text-sm text-blue-400 hover:bg-gray-700 w-full disabled:opacity-50 text-start'
               >
-                <Network className="w-4 h-4 mr-2" />
+                <Network className='w-4 h-4 mr-2' />
                 {isSwitching ? 'Switching...' : 'Switch to Arbitrum'}
               </button>
             )}
 
             <button
               onClick={copyAddress}
-              className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 w-full"
+              className='flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 w-full'
             >
-              <Copy className="w-4 h-4 mr-2" />
+              <Copy className='w-4 h-4 mr-2' />
               Copy Address
             </button>
-            
+
             <button
               onClick={openEtherscan}
-              className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 w-full"
+              className='flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 w-full'
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
+              <ExternalLink className='w-4 h-4 mr-2' />
               View on Explorer
             </button>
 
@@ -226,9 +231,9 @@ const AvatarButtonComponent = () => {
                 disconnect()
                 setIsOpen(false)
               }}
-              className="flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 w-full"
+              className='flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 w-full'
             >
-              <LogOut className="w-4 h-4 mr-2" />
+              <LogOut className='w-4 h-4 mr-2' />
               Disconnect
             </button>
           </div>
@@ -241,5 +246,5 @@ const AvatarButtonComponent = () => {
 // Экспортируем компонент с отключенным SSR
 export const AvatarButton = dynamic(
   () => Promise.resolve(AvatarButtonComponent),
-  { ssr: false }
+  { ssr: false },
 )

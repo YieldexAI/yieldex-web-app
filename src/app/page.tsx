@@ -8,6 +8,7 @@ import {
   ArrowLeftRight,
   TrendingUp,
   BarChart3,
+  PieChart,
   Percent,
   HelpCircle,
 } from 'lucide-react'
@@ -22,18 +23,26 @@ import { ConnectWallet } from '@/components/ConnectWallet'
 import { ConnectButton } from '@/components/ConnectButton'
 import { AvatarButton } from '@/components/AvatarButton'
 import { useAccount } from 'wagmi'
-import { YieldStats } from '@/components/YieldStats'
-import { TopYields } from '@/components/TopYields'
-import { PortfolioOverview } from '@/components/PortfolioOverview'
 
 export default function Home() {
-  const { isConnected } = useAccount()
+  const { address, isConnected } = useAccount()
+
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const href = e.currentTarget.getAttribute('href')
+    const targetId = href?.replace('#', '')
+    const element = document.getElementById(targetId!)
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <main className='min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white pixel-font'>
       {/* Header */}
       <header className='container mx-auto px-4 py-6 relative z-10'>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col items-center justify-between md:flex-row'>
           <div className='flex items-center'>
             <div className='w-12 h-12 flex items-center justify-center'>
               <Coins className='w-10 h-10 text-green-400' />
@@ -41,7 +50,13 @@ export default function Home() {
             <span className='ml-3 text-xl font-bold pixel-text'>YIELDEX</span>
           </div>
 
-          {isConnected && <AvatarButton />}
+          {!isConnected ? (
+            <ConnectWallet>
+              <ConnectButton />
+            </ConnectWallet>
+          ) : (
+            <AvatarButton />
+          )}
         </div>
       </header>
 
@@ -60,32 +75,23 @@ export default function Home() {
           </p>
 
           <div className='flex flex-wrap justify-center gap-4'>
-            <button className='pixel-button bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 flex items-center gap-2'>
-              START EARNING
-              <ArrowRight className='w-5 h-5' />
-            </button>
-            <button className='pixel-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8'>
-              LEARN MORE
-            </button>
+            <a href='#dashboard' onClick={handleScroll}>
+              <button className='pixel-button bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 flex items-center gap-2'>
+                START EARNING
+                <ArrowRight className='w-5 h-5' />
+              </button>
+            </a>
+            <a href='#dashboard' onClick={handleScroll}>
+              <button className='pixel-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8'>
+                LEARN MORE
+              </button>
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Current Yields Section - перемещаем этот блок выше */}
-      <div className='container mx-auto px-4 py-16'>
-        <div className='text-center mb-12'>
-          <h2 className='text-3xl font-bold mb-4 pixel-text'>
-            CURRENT YIELDS
-          </h2>
-          <p className='text-gray-300 pixel-text-sm'>
-            Real-time yield data across different assets
-          </p>
-        </div>
-        <YieldStats />
-      </div>
-
-      {/* Dashboard Preview Section - теперь этот блок идет после Current Yields */}
-      <div className='container mx-auto px-4 py-16'>
+      {/* Dashboard Preview Section */}
+      <div id='dashboard' className='container mx-auto px-4 py-16'>
         <div className='text-center mb-12'>
           <h2 className='text-3xl font-bold mb-4 pixel-text'>
             YOUR YIELD DASHBOARD
@@ -97,67 +103,123 @@ export default function Home() {
 
         <div className='max-w-6xl mx-auto'>
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-            <TopYields />
-
             {/* Portfolio Overview */}
-            {isConnected ? (
-              <PortfolioOverview />
-            ) : (
-              <div className='lg:col-span-2'>
-                <div className='pixel-card p-6 bg-gray-800 border-2 border-gray-600 h-full relative'>
-                  {/* Блюр оверлей */}
-                  <div className='absolute inset-0 backdrop-blur-sm bg-gray-900/50 z-10 flex items-center justify-center'>
-                    <div className='text-center space-y-4'>
-                      <Coins className='w-12 h-12 mx-auto text-gray-500' />
-                      <p className='text-xl text-gray-400 pixel-text'>
-                        CONNECT YOUR WALLET
-                      </p>
-                      <p className='text-gray-500 pixel-text-sm'>
-                        Connect your wallet to view portfolio analytics
-                      </p>
-                      <ConnectWallet>
-                        <button className='pixel-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6'>
-                          CONNECT NOW
-                        </button>
-                      </ConnectWallet>
+            <div className='lg:col-span-2'>
+              <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400 h-full'>
+                <div className='flex items-center justify-between mb-6'>
+                  <h3 className='text-xl font-bold pixel-text'>
+                    PORTFOLIO OVERVIEW
+                  </h3>
+                  <TrendingUp className='w-6 h-6 text-green-400' />
+                </div>
+                <div className='space-y-4'>
+                  <div className='grid grid-cols-2 gap-4'>
+                    <div className='p-4 bg-gray-700 rounded-lg'>
+                      <div className='text-sm text-gray-400'>Total Value</div>
+                      <div className='text-2xl font-bold text-green-400'>
+                        $50,000
+                      </div>
+                    </div>
+                    <div className='p-4 bg-gray-700 rounded-lg'>
+                      <div className='text-sm text-gray-400'>Total Yield</div>
+                      <div className='text-2xl font-bold text-green-400'>
+                        $750
+                      </div>
                     </div>
                   </div>
-
-                  {/* Заблюренный контент */}
-                  <div className='opacity-50'>
-                    <div className='flex items-center justify-between mb-6'>
-                      <h3 className='text-xl font-bold pixel-text'>
-                        PORTFOLIO OVERVIEW
-                      </h3>
-                      <TrendingUp className='w-6 h-6 text-green-400' />
-                    </div>
-                    <div className='space-y-4'>
-                      <div className='grid grid-cols-2 gap-4'>
-                        <div className='p-4 bg-gray-700 rounded-lg'>
-                          <div className='text-sm text-gray-400'>Total Value</div>
-                          <div className='text-2xl font-bold text-green-400'>
-                            $50,000
-                          </div>
-                        </div>
-                        <div className='p-4 bg-gray-700 rounded-lg'>
-                          <div className='text-sm text-gray-400'>Total Yield</div>
-                          <div className='text-2xl font-bold text-green-400'>
-                            $750
-                          </div>
-                        </div>
-                      </div>
-                      <div className='relative h-48 bg-gray-700 rounded-lg p-4'>
-                        <BarChart3 className='w-full h-full text-green-400 opacity-25' />
-                        <div className='absolute bottom-4 left-4 text-sm'>
-                          <div className='text-gray-400'>30-Day Performance</div>
-                          <div className='text-green-400'>+15.8%</div>
-                        </div>
-                      </div>
+                  <div className='relative h-48 bg-gray-700 rounded-lg p-4'>
+                    <BarChart3 className='w-full h-full text-green-400 opacity-25' />
+                    <div className='absolute bottom-4 left-4 text-sm'>
+                      <div className='text-gray-400'>30-Day Performance</div>
+                      <div className='text-green-400'>+15.8%</div>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
+
+            {/* Yield Opportunities */}
+            <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400'>
+              <div className='flex items-center justify-between mb-6'>
+                <h3 className='text-xl font-bold pixel-text'>TOP YIELDS</h3>
+                <Percent className='w-6 h-6 text-green-400' />
+              </div>
+              <div className='space-y-4'>
+                <div className='p-4 bg-gray-700 rounded-lg'>
+                  <div className='flex items-center justify-between'>
+                    <div>
+                      <div className='font-bold'>Arbitrum USDC</div>
+                      <div className='text-sm text-gray-400'>Via Aave</div>
+                    </div>
+                    <div className='text-green-400 font-bold'>15.1% APY</div>
+                  </div>
+                </div>
+                <div className='p-4 bg-gray-700 rounded-lg'>
+                  <div className='flex items-center justify-between'>
+                    <div>
+                      <div className='font-bold'>Optimism USDT</div>
+                      <div className='text-sm text-gray-400'>Via Curve</div>
+                    </div>
+                    <div className='text-green-400 font-bold'>12.8% APY</div>
+                  </div>
+                </div>
+                <div className='p-4 bg-gray-700 rounded-lg'>
+                  <div className='flex items-center justify-between'>
+                    <div>
+                      <div className='font-bold'>Polygon DAI</div>
+                      <div className='text-sm text-gray-400'>Via Balancer</div>
+                    </div>
+                    <div className='text-green-400 font-bold'>11.5% APY</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Asset Allocation */}
+          <div className='mt-8 pixel-card p-6 bg-gray-800 border-2 border-green-400'>
+            <div className='flex items-center justify-between mb-6'>
+              <h3 className='text-xl font-bold pixel-text'>ASSET ALLOCATION</h3>
+              <PieChart className='w-6 h-6 text-green-400' />
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
+              <div className='p-4 bg-gray-700 rounded-lg'>
+                <div className='flex items-center justify-between'>
+                  <div>USDC</div>
+                  <div className='text-green-400'>40%</div>
+                </div>
+                <div className='mt-2 h-2 bg-gray-600 rounded-full'>
+                  <div className='h-full w-2/5 bg-green-400 rounded-full'></div>
+                </div>
+              </div>
+              <div className='p-4 bg-gray-700 rounded-lg'>
+                <div className='flex items-center justify-between'>
+                  <div>USDT</div>
+                  <div className='text-green-400'>30%</div>
+                </div>
+                <div className='mt-2 h-2 bg-gray-600 rounded-full'>
+                  <div className='h-full w-1/3 bg-green-400 rounded-full'></div>
+                </div>
+              </div>
+              <div className='p-4 bg-gray-700 rounded-lg'>
+                <div className='flex items-center justify-between'>
+                  <div>DAI</div>
+                  <div className='text-green-400'>20%</div>
+                </div>
+                <div className='mt-2 h-2 bg-gray-600 rounded-full'>
+                  <div className='h-full w-1/5 bg-green-400 rounded-full'></div>
+                </div>
+              </div>
+              <div className='p-4 bg-gray-700 rounded-lg'>
+                <div className='flex items-center justify-between'>
+                  <div>Other</div>
+                  <div className='text-green-400'>10%</div>
+                </div>
+                <div className='mt-2 h-2 bg-gray-600 rounded-full'>
+                  <div className='h-full w-1/12 bg-green-400 rounded-full'></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
