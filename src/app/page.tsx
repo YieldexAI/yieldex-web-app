@@ -22,10 +22,13 @@ import {
 import { ConnectWallet } from '@/components/ConnectWallet'
 import { ConnectButton } from '@/components/ConnectButton'
 import { AvatarButton } from '@/components/AvatarButton'
+import { CreateSmartWallet } from '@/components/CreateSmartWallet'
 import { useAccount } from 'wagmi'
+import { useState } from 'react'
 
 export default function Home() {
   const { address, isConnected } = useAccount()
+  const [hasSmartWallet, setHasSmartWallet] = useState(false)
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -106,11 +109,10 @@ export default function Home() {
             {/* Portfolio Overview */}
             <div className='lg:col-span-2'>
               <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400 h-full'>
-                <div className='flex items-center justify-between mb-6'>
-                  <h3 className='text-xl font-bold pixel-text'>
-                    PORTFOLIO OVERVIEW
+                <div className='text-center mb-8'>
+                  <h3 className='text-2xl font-bold mb-4 pixel-text'>
+                    Portfolio Overview
                   </h3>
-                  <TrendingUp className='w-6 h-6 text-green-400' />
                 </div>
                 <div className='space-y-4'>
                   <div className='grid grid-cols-2 gap-4'>
@@ -134,6 +136,10 @@ export default function Home() {
                       <div className='text-green-400'>+15.8%</div>
                     </div>
                   </div>
+                  <p className='text-gray-400 mb-6'>
+                    Get started with your smart wallet to begin earning yields
+                  </p>
+                  <CreateSmartWallet onSuccess={() => setHasSmartWallet(true)} />
                 </div>
               </div>
             </div>
