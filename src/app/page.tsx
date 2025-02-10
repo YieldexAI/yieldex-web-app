@@ -49,9 +49,13 @@ export default function Home() {
       <header className='container mx-auto px-4 py-6 relative z-10'>
         <div className='flex flex-col items-center justify-between md:flex-row'>
           <div className='flex items-center'>
-            <div className='w-12 h-12 flex items-center justify-center'>
-              <Coins className='w-10 h-10 text-green-400' />
-            </div>
+            <Image 
+              src="/Yieldex_logo.png"
+              alt="Yieldex Logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
             <span className='ml-3 text-xl font-bold pixel-text'>YIELDEX</span>
           </div>
 
@@ -218,15 +222,6 @@ export default function Home() {
           {/*      </div>*/}
           {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
           {/*        <div className='h-full w-1/5 bg-green-400 rounded-full'></div>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*    <div className='p-4 bg-gray-700 rounded-lg'>*/}
-          {/*      <div className='flex items-center justify-between'>*/}
-          {/*        <div>Other</div>*/}
-          {/*        <div className='text-green-400'>10%</div>*/}
-          {/*      </div>*/}
-          {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
-          {/*        <div className='h-full w-1/12 bg-green-400 rounded-full'></div>*/}
           {/*      </div>*/}
           {/*    </div>*/}
         {/*</div>*/}

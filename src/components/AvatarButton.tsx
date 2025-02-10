@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 'use client'
 
 import { useAccount, useDisconnect, useChainId } from 'wagmi'
@@ -45,7 +51,7 @@ const AvatarButtonComponent = () => {
   // Инициализация и отслеживание сети
   useEffect(() => {
     const initializeChainId = async () => {
-      if (window.ethereum) {
+      if (typeof window.ethereum !== 'undefined') {
         try {
           // Получаем текущий chainId из MetaMask
           const ethereumChainId = await window.ethereum.request({
@@ -62,7 +68,9 @@ const AvatarButtonComponent = () => {
           window.ethereum.on('chainChanged', handleChainChanged)
 
           return () => {
-            window.ethereum.removeListener('chainChanged', handleChainChanged)
+            if (typeof window.ethereum !== 'undefined') {
+              window.ethereum.removeListener('chainChanged', handleChainChanged)
+            }
           }
         } catch (error) {
           console.error('Error initializing chainId:', error)
