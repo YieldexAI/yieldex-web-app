@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useAccount, useBalance, useChainId, useDisconnect } from 'wagmi'
 import { TrendingUp, BarChart3 } from 'lucide-react'
+import {CreateSmartWallet} from "@/components/CreateSmartWallet";
 
 // Поддерживаемые сети и токены
 const SUPPORTED_NETWORKS = {
@@ -39,18 +40,18 @@ export function PortfolioOverview() {
   const [isLoading, setIsLoading] = useState(true)
   const [networkError, setNetworkError] = useState<string | null>(null)
   const [pricesCache, setPricesCache] = useState<{[key: string]: number}>({})
+  const [hasSmartWallet, setHasSmartWallet] = useState(false)
 
   // Проверяем поддерживаемую сеть
   const currentNetwork = SUPPORTED_NETWORKS[chainId as keyof typeof SUPPORTED_NETWORKS]
   const tokens = currentNetwork?.tokens || []
 
   // Получаем балансы только для токенов текущей сети
-  const balances = tokens.map(token => 
+  const balances = tokens.map(token =>
     useBalance({
       address: address,
       token: token.address as `0x${string}`,
       chainId,
-      watch: true,
     })
   )
 
@@ -58,7 +59,7 @@ export function PortfolioOverview() {
   const fetchPrices = useCallback(async () => {
     try {
       const prices: {[key: string]: number} = {}
-      
+
       // Для стейблкоинов устанавливаем фиксированную цену
       prices['tether'] = 1
       prices['usd-coin'] = 1
@@ -167,8 +168,12 @@ export function PortfolioOverview() {
               <div className='text-green-400'>+0.0%</div>
             </div>
           </div>
+          <p className='text-gray-400 mb-6'>
+            Get started with your smart wallet to begin earning yields
+          </p>
+          <CreateSmartWallet onSuccess={() => setHasSmartWallet(true)} />
         </div>
       </div>
     </div>
   )
-} 
+}
