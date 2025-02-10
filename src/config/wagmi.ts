@@ -1,48 +1,23 @@
 import { http, createConfig } from 'wagmi'
+import { metaMask, injected } from 'wagmi/connectors'
 import { arbitrum } from 'wagmi/chains'
-import { injected, metaMask } from 'wagmi/connectors'
 
-// Определяем Arbitrum явно
+// Кастомная конфигурация Arbitrum (если нужна)
 const arbitrumChain = {
   ...arbitrum,
-  id: 42161,
-  name: 'Arbitrum One',
-  network: 'arbitrum',
-  nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
-  },
-  rpcUrls: {
-    default: { 
-      http: ['https://arb1.arbitrum.io/rpc']
-    },
-    public: {
-      http: ['https://arb1.arbitrum.io/rpc']
-    }
-  },
-  blockExplorers: {
-    default: {
-      name: 'Arbiscan',
-      url: 'https://arbiscan.io'
-    }
-  }
+  // ваши кастомные настройки
 }
 
-// Конфигурация Wagmi
+// Создаем конфигурацию
 export const config = createConfig({
   chains: [arbitrumChain],
-  connectors: [
-    metaMask({
-      chains: [arbitrumChain],
-    }),
-    injected({
-      chains: [arbitrumChain],
-    })
-  ],
   transports: {
-    [arbitrumChain.id]: http(arbitrumChain.rpcUrls.default.http[0])
-  }
+    [arbitrumChain.id]: http(),
+  },
+  connectors: [
+    metaMask(),
+    injected(),
+  ],
 })
 
 // Экспортируем типы для использования в других файлах

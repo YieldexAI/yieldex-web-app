@@ -116,12 +116,16 @@ export function YieldStats() {
     }).format(value)
   }
 
-  const formatDate = (timestamp: string) => {
-    const date = new Date(timestamp)
-    return date.toLocaleDateString('en-US', {
-      month: 'short', // Jan
-      day: '2-digit', // 21
-    })
+  const formatDate = (date: Date) => {
+    const hours = date.getHours()
+    const minutes = date.getMinutes().toString().padStart(2, '0')
+    const formattedHours = hours.toString().padStart(2, '0')
+    
+    return `${date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+    })}, ${formattedHours}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`
   }
 
   // Добавим функцию для отладки
@@ -130,7 +134,7 @@ export function YieldStats() {
     console.log('Timestamp details:', {
       original: timestamp,
       parsed: date,
-      formatted: formatDate(timestamp),
+      formatted: formatDate(date),
       utc: date.toUTCString(),
       iso: date.toISOString(),
     })
@@ -151,7 +155,7 @@ export function YieldStats() {
       month: 'short', // Feb
       day: '2-digit', // 08
       year: 'numeric', // 2025
-    })}, ${hours}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`
+    })}, ${hours}:${minutes} ${Number(hours) >= 12 ? 'PM' : 'AM'}`
   }
 
   if (isLoading && apyHistory.length === 0) {
