@@ -135,9 +135,7 @@ export function PortfolioOverview() {
     <div className='lg:col-span-2'>
       <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400 h-full'>
         <div className='flex items-center justify-between mb-6'>
-          <h3 className='text-xl font-bold pixel-text'>
-            PORTFOLIO OVERVIEW
-          </h3>
+          <h1 className="portfolio-title">PORTFOLIO OVERVIEW (DEMO)</h1>
           <TrendingUp className='w-6 h-6 text-green-400' />
         </div>
         <div className='space-y-4'>
