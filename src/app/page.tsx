@@ -28,6 +28,8 @@ import { useState } from 'react'
 import {YieldStats} from "@/components/YieldStats";
 import {PortfolioOverview} from "@/components/PortfolioOverview";
 import {TopYields} from "@/components/TopYields";
+import { PixelXIcon, PixelDocsIcon } from '@/components/ui/icons'
+import Link from 'next/link'
 
 export default function Home() {
   const { address, isConnected } = useAccount()
@@ -223,7 +225,6 @@ export default function Home() {
           {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
           {/*        <div className='h-full w-1/5 bg-green-400 rounded-full'></div>*/}
           {/*      </div>*/}
-          {/*    </div>*/}
         {/*</div>*/}
       {/*</div>*/}
 
@@ -452,13 +453,34 @@ export default function Home() {
 
       {/* CTA Section */}
       <div className='container mx-auto px-4 py-16'>
-        <div className='max-w-3xl mx-auto text-center'>
+        <div className='max-w-3xl mx-auto text-center space-y-8'>
           <h2 className='text-3xl font-bold mb-6 pixel-text'>
             READY TO LEVEL UP YOUR YIELDS?
           </h2>
-          <ConnectWallet>
-            <ConnectButton />
-          </ConnectWallet>
+          <div className="flex items-center justify-center gap-6">
+            <Link
+              href="https://x.com/YieldexAi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-green-400"
+            >
+              <div className="h-5 w-5">
+                <PixelXIcon />
+              </div>
+              <span className="text-sm pixel-text">X</span>
+            </Link>
+            <Link
+              href="https://yieldex.gitbook.io/yieldex-docs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-green-400"
+            >
+              <div className="h-5 w-5">
+                <PixelDocsIcon />
+              </div>
+              <span className="text-sm pixel-text">DOCS</span>
+            </Link>
+          </div>
         </div>
       </div>
     </main>
