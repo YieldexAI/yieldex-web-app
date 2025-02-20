@@ -455,7 +455,7 @@ export default function Home() {
       <div className='container mx-auto px-4 py-16'>
         <div className='max-w-3xl mx-auto text-center space-y-8'>
           <h2 className='text-3xl font-bold mb-6 pixel-text'>
-            READY TO LEVEL UP YOUR YIELDS?
+            FOLLOW THE JOURNEY
           </h2>
           <div className="flex items-center justify-center gap-6">
             <Link
