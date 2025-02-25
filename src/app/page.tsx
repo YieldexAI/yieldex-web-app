@@ -30,6 +30,7 @@ import {PortfolioOverview} from "@/components/PortfolioOverview";
 import {TopYields} from "@/components/TopYields";
 import { PixelXIcon, PixelDocsIcon } from '@/components/ui/icons'
 import Link from 'next/link'
+import { ScrollNetworkCard } from '@/components/ScrollNetworkCard'
 
 export default function Home() {
   const { address, isConnected } = useAccount()
@@ -77,7 +78,7 @@ export default function Home() {
         <div className='max-w-4xl mx-auto text-center space-y-8 relative z-10'>
           <h1 className='text-4xl md:text-6xl font-bold mb-6 pixel-text animate-pulse'>
             STABLE YIELD
-            <span className='block text-green-400'>SIMPLIFIED</span>
+            <span className='block text-yellow-400'>SIMPLIFIED</span>
           </h1>
 
           <p className='text-xl text-gray-300 mb-8 pixel-text-sm'>
@@ -87,7 +88,7 @@ export default function Home() {
 
           <div className='flex flex-wrap justify-center gap-4'>
             <a href='#dashboard' onClick={handleScroll}>
-              <button className='pixel-button bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 flex items-center gap-2'>
+              <button className='pixel-button bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 flex items-center gap-2'>
                 START EARNING
                 <ArrowRight className='w-5 h-5' />
               </button>
@@ -101,7 +102,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Current Yields Section - перемещаем этот блок выше */}
+      {/* Current Yields Section */}
       <div className='container mx-auto px-4 py-16'>
         <div className='text-center mb-12'>
           <h2 className='text-3xl font-bold mb-4 pixel-text'>
@@ -146,7 +147,7 @@ export default function Home() {
                           Connect your wallet to view portfolio analytics
                         </p>
                         <ConnectWallet>
-                          <button className='pixel-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6'>
+                          <button className='pixel-button bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6'>
                             CONNECT NOW
                           </button>
                         </ConnectWallet>
@@ -159,28 +160,28 @@ export default function Home() {
                         <h3 className='text-xl font-bold pixel-text'>
                           PORTFOLIO OVERVIEW
                         </h3>
-                        <TrendingUp className='w-6 h-6 text-green-400' />
+                        <TrendingUp className='w-6 h-6 text-yellow-400' />
                       </div>
                       <div className='space-y-4'>
                         <div className='grid grid-cols-2 gap-4'>
                           <div className='p-4 bg-gray-700 rounded-lg'>
                             <div className='text-sm text-gray-400'>Total Value</div>
-                            <div className='text-2xl font-bold text-green-400'>
+                            <div className='text-2xl font-bold text-yellow-400'>
                               $50,000
                             </div>
                           </div>
                           <div className='p-4 bg-gray-700 rounded-lg'>
                             <div className='text-sm text-gray-400'>Total Yield</div>
-                            <div className='text-2xl font-bold text-green-400'>
+                            <div className='text-2xl font-bold text-yellow-400'>
                               $750
                             </div>
                           </div>
                         </div>
                         <div className='relative h-48 bg-gray-700 rounded-lg p-4'>
-                          <BarChart3 className='w-full h-full text-green-400 opacity-25' />
+                          <BarChart3 className='w-full h-full text-yellow-400 opacity-25' />
                           <div className='absolute bottom-4 left-4 text-sm'>
                             <div className='text-gray-400'>30-Day Performance</div>
-                            <div className='text-green-400'>+15.8%</div>
+                            <div className='text-yellow-400'>+15.8%</div>
                           </div>
                         </div>
                       </div>
@@ -193,37 +194,25 @@ export default function Home() {
           </div>
 
           {/*/!* Asset Allocation *!/*/}
-          {/*<div className='mt-8 pixel-card p-6 bg-gray-800 border-2 border-green-400'>*/}
+          {/*<div className='mt-8 pixel-card p-6 bg-gray-800 border-2 border-yellow-400'>*/}
           {/*  <div className='flex items-center justify-between mb-6'>*/}
           {/*    <h3 className='text-xl font-bold pixel-text'>ASSET ALLOCATION</h3>*/}
-          {/*    <PieChart className='w-6 h-6 text-green-400' />*/}
+          {/*    <PieChart className='w-6 h-6 text-yellow-400' />*/}
           {/*  </div>*/}
           {/*  <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>*/}
           {/*    <div className='p-4 bg-gray-700 rounded-lg'>*/}
           {/*      <div className='flex items-center justify-between'>*/}
           {/*        <div>USDC</div>*/}
-          {/*        <div className='text-green-400'>40%</div>*/}
+          {/*        <div className='text-yellow-400'>40%</div>*/}
           {/*      </div>*/}
           {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
-          {/*        <div className='h-full w-2/5 bg-green-400 rounded-full'></div>*/}
+          {/*        <div className='h-full w-2/5 bg-yellow-400 rounded-full'></div>*/}
           {/*      </div>*/}
           {/*    </div>*/}
           {/*    <div className='p-4 bg-gray-700 rounded-lg'>*/}
           {/*      <div className='flex items-center justify-between'>*/}
           {/*        <div>USDT</div>*/}
-          {/*        <div className='text-green-400'>30%</div>*/}
-          {/*      </div>*/}
-          {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
-          {/*        <div className='h-full w-1/3 bg-green-400 rounded-full'></div>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*    <div className='p-4 bg-gray-700 rounded-lg'>*/}
-          {/*      <div className='flex items-center justify-between'>*/}
-          {/*        <div>DAI</div>*/}
-          {/*        <div className='text-green-400'>20%</div>*/}
-          {/*      </div>*/}
-          {/*      <div className='mt-2 h-2 bg-gray-600 rounded-full'>*/}
-          {/*        <div className='h-full w-1/5 bg-green-400 rounded-full'></div>*/}
+          {/*        <div className='text-yellow-400'>30%</div>*/}
           {/*      </div>*/}
         {/*</div>*/}
       {/*</div>*/}
@@ -231,9 +220,9 @@ export default function Home() {
       {/* Features Grid */}
       <div className='container mx-auto px-4 py-16'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-          <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400'>
+          <div className='pixel-card p-6 bg-gray-800 border-2 border-yellow-400'>
             <div className='mb-4'>
-              <Shield className='w-12 h-12 text-green-400' />
+              <Shield className='w-12 h-12 text-yellow-400' />
             </div>
             <h3 className='text-xl font-bold mb-2 pixel-text'>
               FORTIFIED SECURITY
@@ -243,9 +232,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400'>
+          <div className='pixel-card p-6 bg-gray-800 border-2 border-yellow-400'>
             <div className='mb-4'>
-              <LineChart className='w-12 h-12 text-green-400' />
+              <LineChart className='w-12 h-12 text-yellow-400' />
             </div>
             <h3 className='text-xl font-bold mb-2 pixel-text'>
               OPTIMAL YIELDS
@@ -255,9 +244,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400'>
+          <div className='pixel-card p-6 bg-gray-800 border-2 border-yellow-400'>
             <div className='mb-4'>
-              <Coins className='w-12 h-12 text-green-400' />
+              <Coins className='w-12 h-12 text-yellow-400' />
             </div>
             <h3 className='text-xl font-bold mb-2 pixel-text'>MULTI-CHAIN</h3>
             <p className='text-gray-300 pixel-text-sm'>
@@ -271,17 +260,17 @@ export default function Home() {
       <div className='container mx-auto px-4 py-16 bg-gray-900'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8 text-center'>
           <div className='pixel-stat'>
-            <div className='text-4xl font-bold text-green-400 mb-2'>$150M+</div>
+            <div className='text-4xl font-bold text-yellow-400 mb-2'>$150M+</div>
             <div className='text-gray-300 pixel-text-sm'>
               TOTAL VALUE LOCKED
             </div>
           </div>
           <div className='pixel-stat'>
-            <div className='text-4xl font-bold text-green-400 mb-2'>12%</div>
+            <div className='text-4xl font-bold text-yellow-400 mb-2'>12%</div>
             <div className='text-gray-300 pixel-text-sm'>AVERAGE APY</div>
           </div>
           <div className='pixel-stat'>
-            <div className='text-4xl font-bold text-green-400 mb-2'>10K+</div>
+            <div className='text-4xl font-bold text-yellow-400 mb-2'>10K+</div>
             <div className='text-gray-300 pixel-text-sm'>ACTIVE USERS</div>
           </div>
         </div>
@@ -291,52 +280,15 @@ export default function Home() {
       <div className='container mx-auto px-4 py-16'>
         <div className='text-center mb-12'>
           <h2 className='text-3xl font-bold mb-4 pixel-text'>
-            POWERED BY ARBITRUM
+            POWERED BY SCROLL
           </h2>
           <p className='text-gray-300 pixel-text-sm'>
             Experience lightning-fast transactions with minimal fees
           </p>
         </div>
 
-        <div className='network-grid'>
-          <div className='max-w-lg mx-auto'>
-            <div className='network-node arbitrum pixel-card p-8 bg-gray-800 border-2 border-green-400'>
-              <div className='w-20 h-20 mx-auto mb-6 flex items-center justify-center'>
-                <Coins className='w-16 h-16 text-green-400' />
-              </div>
-              <span className='network-label block text-xl mb-4'>
-                ARBITRUM NETWORK
-              </span>
-              <div className='network-apy text-2xl mb-4'>APY: 15.1%</div>
-              <div className='space-y-4'>
-                <div className='flex items-center justify-between px-4 py-2 bg-gray-700 rounded'>
-                  <span>Gas Savings</span>
-                  <span className='text-green-400'>Up to 97%</span>
-                </div>
-                <div className='flex items-center justify-between px-4 py-2 bg-gray-700 rounded'>
-                  <span>Transaction Speed</span>
-                  <span className='text-green-400'>&lt; 1 second</span>
-                </div>
-                <div className='flex items-center justify-between px-4 py-2 bg-gray-700 rounded'>
-                  <span>Security</span>
-                  <span className='text-green-400'>Ethereum L2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='network-info pixel-card p-6 bg-gray-800 border-2 border-green-400 mt-8 max-w-lg mx-auto'>
-            <div className='flex items-center justify-center gap-4 mb-4'>
-              <ArrowLeftRight className='w-8 h-8 text-green-400' />
-              <span className='text-xl font-bold pixel-text'>
-                SEAMLESS BRIDGING
-              </span>
-            </div>
-            <p className='text-gray-300 pixel-text-sm text-center'>
-              Easily bridge your assets to Arbitrum and start earning optimal
-              yields instantly
-            </p>
-          </div>
+        <div className='max-w-3xl mx-auto'>
+          <ScrollNetworkCard />
         </div>
       </div>
 
@@ -347,7 +299,7 @@ export default function Home() {
             FREQUENTLY ASKED QUESTIONS
           </h2>
           <div className='flex items-center justify-center gap-2'>
-            <HelpCircle className='w-6 h-6 text-green-400' />
+            <HelpCircle className='w-6 h-6 text-yellow-400' />
             <p className='text-gray-300 pixel-text-sm'>
               Everything you need to know about Yieldex
             </p>
@@ -358,7 +310,7 @@ export default function Home() {
           <Accordion type='single' collapsible className='space-y-4'>
             <AccordionItem
               value='item-1'
-              className='pixel-card bg-gray-800 border-2 border-green-400'
+              className='pixel-card bg-gray-800 border-2 border-yellow-400'
             >
               <AccordionTrigger className='px-6 py-4 text-left hover:no-underline'>
                 <span className='text-lg font-bold pixel-text'>
@@ -376,7 +328,7 @@ export default function Home() {
 
             <AccordionItem
               value='item-2'
-              className='pixel-card bg-gray-800 border-2 border-green-400'
+              className='pixel-card bg-gray-800 border-2 border-yellow-400'
             >
               <AccordionTrigger className='px-6 py-4 text-left hover:no-underline'>
                 <span className='text-lg font-bold pixel-text'>
@@ -395,7 +347,7 @@ export default function Home() {
 
             <AccordionItem
               value='item-3'
-              className='pixel-card bg-gray-800 border-2 border-green-400'
+              className='pixel-card bg-gray-800 border-2 border-yellow-400'
             >
               <AccordionTrigger className='px-6 py-4 text-left hover:no-underline'>
                 <span className='text-lg font-bold pixel-text'>
@@ -414,7 +366,7 @@ export default function Home() {
 
             <AccordionItem
               value='item-4'
-              className='pixel-card bg-gray-800 border-2 border-green-400'
+              className='pixel-card bg-gray-800 border-2 border-yellow-400'
             >
               <AccordionTrigger className='px-6 py-4 text-left hover:no-underline'>
                 <span className='text-lg font-bold pixel-text'>
@@ -432,7 +384,7 @@ export default function Home() {
 
             <AccordionItem
               value='item-5'
-              className='pixel-card bg-gray-800 border-2 border-green-400'
+              className='pixel-card bg-gray-800 border-2 border-yellow-400'
             >
               <AccordionTrigger className='px-6 py-4 text-left hover:no-underline'>
                 <span className='text-lg font-bold pixel-text'>
@@ -462,7 +414,7 @@ export default function Home() {
               href="https://x.com/YieldexAi"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-green-400"
+              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-yellow-400"
             >
               <div className="h-5 w-5">
                 <PixelXIcon />
@@ -473,7 +425,7 @@ export default function Home() {
               href="https://yieldex.gitbook.io/yieldex-docs/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-green-400"
+              className="group flex items-center gap-2 px-6 py-4 text-gray-400 transition-colors hover:text-white pixel-card bg-gray-800 border-2 border-yellow-400"
             >
               <div className="h-5 w-5">
                 <PixelDocsIcon />

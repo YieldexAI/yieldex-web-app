@@ -133,16 +133,16 @@ export function PortfolioOverview() {
 
   return (
     <div className='lg:col-span-2'>
-      <div className='pixel-card p-6 bg-gray-800 border-2 border-green-400 h-full'>
+      <div className='pixel-card p-6 bg-gray-800 border-2 border-yellow-400 h-full'>
         <div className='flex items-center justify-between mb-6'>
           <h1 className="portfolio-title">PORTFOLIO OVERVIEW (DEMO)</h1>
-          <TrendingUp className='w-6 h-6 text-green-400' />
+          <TrendingUp className='w-6 h-6 text-yellow-400' />
         </div>
         <div className='space-y-4'>
           <div className='grid grid-cols-2 gap-4'>
             <div className='p-4 bg-gray-700 rounded-lg'>
               <div className='text-sm text-gray-400'>Total Value</div>
-              <div className='text-2xl font-bold text-green-400'>
+              <div className='text-2xl font-bold text-yellow-400'>
                 {networkError ? (
                   <div className='text-red-400 text-sm'>{networkError}</div>
                 ) : isLoading ? (
@@ -154,16 +154,16 @@ export function PortfolioOverview() {
             </div>
             <div className='p-4 bg-gray-700 rounded-lg'>
               <div className='text-sm text-gray-400'>Total Yield</div>
-              <div className='text-2xl font-bold text-green-400'>
+              <div className='text-2xl font-bold text-yellow-400'>
                 {formatUSD(0)}
               </div>
             </div>
           </div>
           <div className='relative h-48 bg-gray-700 rounded-lg p-4'>
-            <BarChart3 className='w-full h-full text-green-400 opacity-25' />
+            <BarChart3 className='w-full h-full text-yellow-400 opacity-25' />
             <div className='absolute bottom-4 left-4 text-sm'>
               <div className='text-gray-400'>30-Day Performance</div>
-              <div className='text-green-400'>+0.0%</div>
+              <div className='text-yellow-400'>+0.0%</div>
             </div>
           </div>
           <p className='text-gray-400 mb-6'>

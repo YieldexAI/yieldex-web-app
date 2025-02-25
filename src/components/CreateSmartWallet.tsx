@@ -168,7 +168,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
         return (
           <div className='text-center py-8'>
             <div className='animate-pulse flex flex-col items-center'>
-              <Wallet className='w-12 h-12 text-blue-400 mb-4' />
+              <Wallet className='w-12 h-12 text-yellow-400 mb-4' />
               <p className='pixel-text text-gray-300'>Creating your Smart Wallet...</p>
             </div>
           </div>
@@ -178,8 +178,8 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
           <div className='text-center py-8'>
             <div className='flex flex-col items-center'>
               <div className='relative'>
-                <Wallet className='w-12 h-12 text-blue-400 mb-4' />
-                <div className='absolute -right-1 -top-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center'>
+                <Wallet className='w-12 h-12 text-yellow-400 mb-4' />
+                <div className='absolute -right-1 -top-1 w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center'>
                   <Check className='w-3 h-3 text-white' />
                 </div>
               </div>
@@ -195,30 +195,30 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
               <div className='flex flex-col items-center mb-6'>
                 <div className='relative'>
                   <div className='relative'>
-                    <Wallet className='w-12 h-12 text-green-400 mb-4' />
-                    <div className='absolute -right-1 -top-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center'>
+                    <Wallet className='w-12 h-12 text-yellow-400 mb-4' />
+                    <div className='absolute -right-1 -top-1 w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center'>
                       <Check className='w-3 h-3 text-white' />
                     </div>
-                    <div className='absolute inset-0 bg-green-400/20 rounded-full animate-ping' />
+                    <div className='absolute inset-0 bg-yellow-400/20 rounded-full animate-ping' />
                   </div>
                 </div>
-                <p className='pixel-text text-green-400 font-bold mb-2'>Smart Wallet Created!</p>
+                <p className='pixel-text text-yellow-400 font-bold mb-2'>Smart Wallet Created!</p>
                 <p className='pixel-text text-gray-400'>Ready to start earning</p>
               </div>
 
               <div className='bg-gradient-to-b from-gray-700/50 to-gray-800/50 p-4 rounded-lg mb-6 border border-gray-600 shadow-lg'>
                 <div className='flex items-center justify-center gap-2 mb-3'>
-                  <div className='h-2 w-2 bg-green-400 rounded-full animate-pulse'></div>
+                  <div className='h-2 w-2 bg-yellow-400 rounded-full animate-pulse'></div>
                   <h4 className='pixel-text text-white font-medium'>Auto-Rebalancing Active</h4>
                 </div>
                 <p className='pixel-text text-gray-300 leading-relaxed'>
                   Your funds will be automatically distributed across top DeFi protocols to maximize your yields while maintaining optimal risk levels.
                 </p>
                 <div className='mt-4 flex items-center justify-center gap-3 text-sm'>
-                  <div className='px-3 py-1.5 rounded bg-gray-800/80 text-green-400 border border-green-400/20 shadow-sm'>
+                  <div className='px-3 py-1.5 rounded bg-gray-800/80 text-yellow-400 border border-yellow-400/20 shadow-sm'>
                     <div className='pixel-text font-medium'>APY up to {selectedRisk.apy}</div>
                   </div>
-                  <div className='px-3 py-1.5 rounded bg-gray-800/80 text-blue-400 border border-blue-400/20 shadow-sm'>
+                  <div className='px-3 py-1.5 rounded bg-gray-800/80 text-yellow-400 border border-yellow-400/20 shadow-sm'>
                     <div className='pixel-text font-medium'>Auto-compound</div>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                       onClick={() => setSelectedRisk(risk)}
                       className={`p-2 rounded border ${
                         selectedRisk.name === risk.name
-                          ? 'border-blue-500 bg-blue-500/10 text-white'
+                          ? 'border-yellow-500 bg-yellow-500/10 text-white'
                           : 'border-gray-600 bg-gray-700 text-gray-300 hover:bg-gray-600'
                       } text-sm transition-all duration-200`}
                     >
@@ -259,7 +259,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder={`Enter ${selectedToken.symbol} amount`}
-                    className='w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 pixel-text'
+                    className='w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 pixel-text'
                   />
                   <div className='absolute right-3 top-1/2 -translate-y-1/2 pixel-text text-gray-400'>
                     {selectedToken.symbol}
@@ -270,7 +270,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                     Min. deposit: 100 {selectedToken.symbol}
                   </p>
                   {amount && Number(amount) >= 100 && (
-                    <p className='pixel-text text-green-400'>
+                    <p className='pixel-text text-yellow-400'>
                       Est. monthly earnings: {calculateEstimatedEarnings()} {selectedToken.symbol}
                     </p>
                   )}
@@ -283,10 +283,10 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                   disabled={isLoading || isSuccess || !amount || Number(amount) < 100}
                   className={`flex-1 pixel-button ${
                     isSuccess
-                      ? 'bg-green-500 hover:bg-green-500'
+                      ? 'bg-yellow-500 hover:bg-yellow-500'
                       : !amount || Number(amount) < 100
                       ? 'bg-gray-600 cursor-not-allowed'
-                      : 'bg-blue-500 hover:bg-blue-600'
+                      : 'bg-yellow-500 hover:bg-yellow-600'
                   } text-white font-bold py-3 px-4 flex items-center justify-center gap-2 transition-all duration-200`}
                 >
                   {isLoading ? (
@@ -317,8 +317,8 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
       {isSuccess ? (
         <div className='bg-gradient-to-b from-gray-800/50 to-gray-900/50 p-4 rounded-lg border border-gray-600/50 backdrop-blur-sm space-y-4'>
           <div className='flex items-center gap-3'>
-            <div className='bg-green-500/20 p-2 rounded-lg'>
-              <Wallet className='w-6 h-6 text-green-400' />
+            <div className='bg-yellow-500/20 p-2 rounded-lg'>
+              <Wallet className='w-6 h-6 text-yellow-400' />
             </div>
             <div>
               <h3 className='pixel-text text-white font-bold'>Smart Wallet Active</h3>
@@ -340,27 +340,27 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
             <div className='flex items-center justify-between px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50'>
               <div className='pixel-text text-sm text-gray-400'>Est. APY</div>
               <div className='flex items-center gap-2'>
-                <span className='pixel-text text-green-400'>{selectedRisk.apy}</span>
-                <div className='h-2 w-2 bg-green-400 rounded-full animate-pulse'></div>
+                <span className='pixel-text text-yellow-400'>{selectedRisk.apy}</span>
+                <div className='h-2 w-2 bg-yellow-400 rounded-full animate-pulse'></div>
               </div>
             </div>
           </div>
 
           <div className='flex items-center justify-between px-3 py-2 bg-gray-800/80 rounded-lg border border-gray-700/50'>
             <div className='flex items-center gap-2'>
-              <Shield className='w-4 h-4 text-blue-400' />
+              <Shield className='w-4 h-4 text-yellow-400' />
               <span className='pixel-text text-sm text-gray-400'>Risk Level</span>
             </div>
             <div className='flex items-center gap-2'>
               <span className='pixel-text text-white'>{selectedRisk.name}</span>
-              <div className='h-2 w-2 bg-blue-400 rounded-full'></div>
+              <div className='h-2 w-2 bg-yellow-400 rounded-full'></div>
             </div>
           </div>
         </div>
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className='pixel-button bg-blue-500/90 hover:bg-blue-600 text-white font-bold py-3 px-8 transition-all duration-200 backdrop-blur-sm rounded-lg shadow-lg'
+          className='pixel-button bg-yellow-500/90 hover:bg-yellow-600 text-white font-bold py-3 px-8 transition-all duration-200 backdrop-blur-sm rounded-lg shadow-lg'
         >
           <span className='pixel-text'>Create Smart Wallet</span>
         </button>
@@ -383,30 +383,30 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                     <div className='flex flex-col items-center mb-6'>
                       <div className='relative'>
                         <div className='relative'>
-                          <Wallet className='w-12 h-12 text-green-400 mb-4' />
-                          <div className='absolute -right-1 -top-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center'>
+                          <Wallet className='w-12 h-12 text-yellow-400 mb-4' />
+                          <div className='absolute -right-1 -top-1 w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center'>
                             <Check className='w-3 h-3 text-white' />
                           </div>
-                          <div className='absolute inset-0 bg-green-400/20 rounded-full animate-ping' />
+                          <div className='absolute inset-0 bg-yellow-400/20 rounded-full animate-ping' />
                         </div>
                       </div>
-                      <p className='pixel-text text-green-400 font-bold mb-2 text-xl'>Smart Wallet Created!</p>
+                      <p className='pixel-text text-yellow-400 font-bold mb-2 text-xl'>Smart Wallet Created!</p>
                       <p className='pixel-text text-gray-400'>Ready to start earning</p>
                     </div>
 
                     <div className='bg-gradient-to-b from-gray-800/50 to-gray-900/50 p-6 rounded-lg mb-6 border border-gray-600/50 shadow-lg backdrop-blur-sm'>
                       <div className='flex items-center justify-center gap-2 mb-4'>
-                        <div className='h-2 w-2 bg-green-400 rounded-full animate-pulse'></div>
+                        <div className='h-2 w-2 bg-yellow-400 rounded-full animate-pulse'></div>
                         <h4 className='pixel-text text-white font-medium text-lg'>Auto-Rebalancing Active</h4>
                       </div>
                       <p className='pixel-text text-gray-300 leading-relaxed'>
                         Your funds will be automatically distributed across top DeFi protocols to maximize your yields while maintaining optimal risk levels.
                       </p>
                       <div className='mt-6 flex items-center justify-center gap-4 text-sm'>
-                        <div className='px-4 py-2 rounded bg-gray-800/80 text-green-400 border border-green-400/20 shadow-sm backdrop-blur-sm'>
+                        <div className='px-4 py-2 rounded bg-gray-800/80 text-yellow-400 border border-yellow-400/20 shadow-sm backdrop-blur-sm'>
                           <div className='pixel-text font-medium'>APY up to {selectedRisk.apy}</div>
                         </div>
-                        <div className='px-4 py-2 rounded bg-gray-800/80 text-blue-400 border border-blue-400/20 shadow-sm backdrop-blur-sm'>
+                        <div className='px-4 py-2 rounded bg-gray-800/80 text-yellow-400 border border-yellow-400/20 shadow-sm backdrop-blur-sm'>
                           <div className='pixel-text font-medium'>Auto-compound</div>
                         </div>
                       </div>
@@ -426,7 +426,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                           onClick={() => setSelectedRisk(risk)}
                           className={`p-3 rounded-lg border backdrop-blur-sm ${
                             selectedRisk.name === risk.name
-                              ? 'border-blue-500/50 bg-blue-500/10 text-white shadow-lg shadow-blue-500/20'
+                              ? 'border-yellow-500/50 bg-yellow-500/10 text-white shadow-lg shadow-yellow-500/20'
                               : 'border-gray-600/50 bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
                           } transition-all duration-200`}
                         >
@@ -448,7 +448,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder={`Enter ${selectedToken.symbol} amount`}
-                        className='w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 pixel-text backdrop-blur-sm'
+                        className='w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 pixel-text backdrop-blur-sm'
                       />
                       <div className='absolute right-4 top-1/2 -translate-y-1/2 pixel-text text-gray-400'>
                         {selectedToken.symbol}
@@ -459,7 +459,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                         Min. deposit: 100 {selectedToken.symbol}
                       </p>
                       {amount && Number(amount) >= 100 && (
-                        <p className='pixel-text text-green-400 text-sm'>
+                        <p className='pixel-text text-yellow-400 text-sm'>
                           Est. monthly earnings: {calculateEstimatedEarnings()} {selectedToken.symbol}
                         </p>
                       )}
@@ -472,10 +472,10 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                       disabled={isLoading || isSuccess || !amount || Number(amount) < 100}
                       className={`flex-1 pixel-button ${
                         isSuccess
-                          ? 'bg-green-500/90 hover:bg-green-500'
+                          ? 'bg-yellow-500/90 hover:bg-yellow-500'
                           : !amount || Number(amount) < 100
                           ? 'bg-gray-600/50 cursor-not-allowed'
-                          : 'bg-blue-500/90 hover:bg-blue-600'
+                          : 'bg-yellow-500/90 hover:bg-yellow-600'
                       } text-white font-bold py-3 px-4 flex items-center justify-center gap-2 transition-all duration-200 backdrop-blur-sm rounded-lg shadow-lg`}
                     >
                       {isLoading ? (
@@ -521,7 +521,7 @@ export function CreateSmartWallet({ onSuccess }: CreateSmartWalletProps) {
                     <button
                       onClick={handleActivate}
                       disabled={isLoading}
-                      className='flex-1 pixel-button bg-blue-500/90 hover:bg-blue-600 text-white font-bold py-3 px-6 flex items-center justify-center gap-2 transition-all duration-200 backdrop-blur-sm rounded-lg shadow-lg'
+                      className='flex-1 pixel-button bg-yellow-500/90 hover:bg-yellow-600 text-white font-bold py-3 px-6 flex items-center justify-center gap-2 transition-all duration-200 backdrop-blur-sm rounded-lg shadow-lg'
                     >
                       {isLoading ? (
                         <>

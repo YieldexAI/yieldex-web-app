@@ -103,7 +103,7 @@ export default function Dashboard() {
           className='inline-flex items-center hover:opacity-80 transition-opacity'
         >
           <div className='w-12 h-12 flex items-center justify-center'>
-            <Coins className='w-10 h-10 text-green-400' />
+            <Coins className='w-10 h-10 text-yellow-400' />
           </div>
           <span className='ml-3 text-xl font-bold pixel-text'>YIELDEX</span>
         </Link>
@@ -188,7 +188,7 @@ export default function Dashboard() {
                     <p className='text-gray-400 text-sm'>
                       Annual Percentage Yield
                     </p>
-                    <p className='text-3xl font-bold text-green-400'>
+                    <p className='text-3xl font-bold text-yellow-400'>
                       {data.apy.toFixed(2)}%
                     </p>
                   </div>
