@@ -14,14 +14,6 @@ interface TopYieldData {
   displayProtocol?: string
 }
 
-// Хардкодированные протоколы для известных активов
-const KNOWN_PROTOCOLS: Record<string, string> = {
-  'USDT': 'aave-v3',
-  'USDC': 'compound-v3',
-  'DAI': 'curve-fi',
-  'ETH': 'lido',
-  'WBTC': 'maker-dao'
-}
 
 export function TopYields() {
   const [topYields, setTopYields] = useState<TopYieldData[]>([])
